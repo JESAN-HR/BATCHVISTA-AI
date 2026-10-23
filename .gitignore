@@ -1,0 +1,12 @@
+node_modules/
+.next/
+data/
+data-backup-*/
+Caddyfile
+.env*
+!.env.example
+test-results/
+test-results-station/
+playwright-report/
+*.tsbuildinfo
+eng.traineddata

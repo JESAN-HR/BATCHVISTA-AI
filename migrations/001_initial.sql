@@ -1,0 +1,15 @@
+PRAGMA foreign_keys = ON;
+CREATE TABLE IF NOT EXISTS migration (version INTEGER PRIMARY KEY, applied_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS organization (id TEXT PRIMARY KEY, name TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS app_user (id TEXT PRIMARY KEY, organization_id TEXT NOT NULL REFERENCES organization(id) ON DELETE CASCADE, name TEXT NOT NULL, role TEXT NOT NULL CHECK(role IN ('operator','guest')));
+CREATE TABLE IF NOT EXISTS session (token TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES app_user(id) ON DELETE CASCADE, expires_at INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS image (id TEXT PRIMARY KEY, organization_id TEXT NOT NULL REFERENCES organization(id) ON DELETE CASCADE, filename TEXT NOT NULL, width INTEGER NOT NULL, height INTEGER NOT NULL, created_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS product (id TEXT PRIMARY KEY, organization_id TEXT NOT NULL REFERENCES organization(id) ON DELETE CASCADE, name TEXT NOT NULL, sku TEXT NOT NULL, reference_id TEXT REFERENCES image(id) ON DELETE SET NULL, created_at TEXT NOT NULL, UNIQUE(organization_id, sku));
+CREATE TABLE IF NOT EXISTS product_specification (product_id TEXT PRIMARY KEY REFERENCES product(id) ON DELETE CASCADE, payload TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS inspection (id TEXT PRIMARY KEY, organization_id TEXT NOT NULL REFERENCES organization(id) ON DELETE CASCADE, product_id TEXT NOT NULL REFERENCES product(id) ON DELETE RESTRICT, image_id TEXT NOT NULL REFERENCES image(id), payload TEXT NOT NULL, created_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS extracted_field (id INTEGER PRIMARY KEY, inspection_id TEXT NOT NULL REFERENCES inspection(id) ON DELETE CASCADE, name TEXT NOT NULL, observed TEXT, evidence TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS inspection_finding (id INTEGER PRIMARY KEY, inspection_id TEXT NOT NULL REFERENCES inspection(id) ON DELETE CASCADE, name TEXT NOT NULL, status TEXT NOT NULL CHECK(status IN ('match','mismatch','uncertain')), expected TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS human_review (id TEXT PRIMARY KEY, inspection_id TEXT NOT NULL REFERENCES inspection(id) ON DELETE CASCADE, user_id TEXT NOT NULL REFERENCES app_user(id), payload TEXT NOT NULL, created_at TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS audit_event (id TEXT PRIMARY KEY, organization_id TEXT NOT NULL REFERENCES organization(id) ON DELETE CASCADE, user_id TEXT NOT NULL REFERENCES app_user(id), action TEXT NOT NULL, resource_id TEXT NOT NULL, created_at TEXT NOT NULL);
+CREATE INDEX IF NOT EXISTS inspection_org_date ON inspection(organization_id,created_at);
+INSERT OR IGNORE INTO migration VALUES (1,datetime('now'));
