@@ -1,0 +1,51 @@
+BATCHVISTA AI — FICTIONAL LABEL TEST PACK
+
+These are synthetic test images, not real manufactured products or an industrial accuracy benchmark.
+
+1. Open your deployed site and choose Open browser workspace.
+2. Select the starter product Aster Oat Drink (AST-OAT-250).
+3. Keep its original approved specification:
+   Product: Aster Oat Drink
+   Variant: Original
+   Batch: BV-2026-042
+   Manufactured: 2026-10-01
+   Expiry: 2027-04-01
+   Quantity: 250 ml
+   Mandatory phrases (one per line):
+   Store in a cool dry place
+   Shake well before use
+   Require human visual inspection: unchecked for this text-only test.
+4. Upload one image at a time under Package photograph and click Run real inspection.
+   First use downloads the OCR model. Keep the page open while processing.
+
+EXPECTED MACHINE RECOMMENDATIONS
+
+correct.png       PASS   Supported printed text matches the original specification.
+wrong-batch.png   FAIL   Observed batch BV-2026-099 differs from BV-2026-042.
+wrong-expiry.png  FAIL   Printed expiry differs from 2027-04-01; compare the actual OCR evidence.
+ambiguous.png    REVIEW  Deliberately unreadable/low-resolution image; do not expect invented text or boxes.
+
+These expectations apply to the unchanged starter specification and the supplied image files.
+If you edit the product or photograph a screen, OCR and recommendations can differ.
+PASS is not a safety/compliance certification; the human still decides.
+
+END-TO-END TEST
+
+- On wrong-batch.png, check the original text and visible OCR boxes.
+- Enter reviewer name Fictional Tester.
+- Choose Reject and enter: Verified printed batch BV-2026-099 against approved BV-2026-042.
+- Click Confirm human decision.
+- Open report, then Print / Save PDF. Also test Export JSON.
+- Reload the same site in the same browser profile, reopen the workspace, and check Inspection history.
+  The inspection and review should still be present.
+- Optional: upload correct.png as the product's approved reference before another inspection.
+  Browser mode supports manual reference comparison, not automatic pixel-defect detection.
+
+The site also includes Approved label, Wrong batch, Wrong expiry and Low resolution buttons,
+so you can run the same tests without extracting this ZIP.
+
+Records stay in this browser/site origin. A different browser, device or Vercel preview URL has
+separate records. Export before clearing site data. Reviewer names are self-declared demo identities.
+
+If the old Local workstation only error appears, the updated browser-mode code has not been
+deployed/configured: use the updated source, BATCHVISTA_MODE=browser and npm run build, then redeploy.
