@@ -2,6 +2,16 @@
 
 **Industrial Visual Quality Intelligence**
 
+## Vercel public demo update
+
+Two modes are available: the original local workstation and a **device-local public browser demo**. On Vercel, the browser mode runs real Tesseract OCR and the same deterministic checks, with IndexedDB records, evidence, human review and JSON/printable reports. No API key or hosted database is required; workstation APIs are disabled in browser mode.
+
+**Update your Vercel site:** deploy this updated source, use `npm run build` (set by `vercel.json`), set `BATCHVISTA_MODE=browser` for Production/Preview, and redeploy. See [BROWSER_DEMO.md](BROWSER_DEMO.md) for complete instructions. Redeploying an older commit will not include the fix.
+
+Public demo records stay in that browser, without shared staff accounts or cloud backup. Reviewer names are self-declared; reference comparison is manual. First use needs internet for app/OCR assets; offline reload is not guaranteed. Export important records before clearing site data. The workstation retains named accounts and experimental pixel comparison.
+
+The installation and named-account instructions below describe **workstation mode**, unless explicitly stated otherwise.
+
 A working local-first packaging inspection prototype for International AI Builders Congress 2026, Idea to Unicorn, IndustrySphere AI / Quality Vision. Register a standard, inspect an image with real offline OCR, compare evidence, record a human decision, and print a report.
 
 ## Camera and production-station update

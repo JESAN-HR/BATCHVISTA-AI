@@ -1,4 +1,6 @@
 node_modules/
+public/ocr/
+test-results-browser/
 .next/
 data/
 data-backup-*/

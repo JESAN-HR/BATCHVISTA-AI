@@ -11,6 +11,8 @@ export default defineConfig([
     "playwright-report/**",
     "test-results/**",
     "test-results-station/**",
+    "test-results-browser/**",
+    "public/ocr/**",
   ]),
   { rules: { "@next/next/no-img-element": "off" } },
 ]);

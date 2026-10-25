@@ -1,5 +1,9 @@
 # Running and deployment boundaries
 
+## Public browser demo on Vercel
+
+Follow [BROWSER_DEMO.md](BROWSER_DEMO.md): deploy updated source, build with `npm run build`, set `BATCHVISTA_MODE=browser`, and redeploy. `VERCEL=1` also selects this mode. Browser OCR/IndexedDB replace server OCR/SQLite in this experience. Workstation APIs return 404. Records and self-declared reviews belong only to that browser. This is locally tested deployment support, not verification of a remote deployment.
+
 ## Supported: private local workstation
 
 1. Install Node 22.13+ and run `npm ci` in the repository.
@@ -12,7 +16,7 @@
 
 Keep Node dependencies and the migrations directory with the deployed checkout. The server explicitly loads Tesseract's worker/model from local `node_modules`; copying only `.next` is insufficient. Persistent SQLite and filesystem storage are required; ephemeral serverless hosting is unsuitable for this implementation.
 
-## Public deployment: not enabled
+## Public shared-workspace deployment: not enabled
 
 The API rejects external hostnames except the exact HTTPS origin explicitly configured for a private station. See PHONE_SETUP.md for that setup. There is no claim that this app is deployed. Do not bypass this check to publish the local operator endpoint. Before any real public deployment:
 

@@ -50,6 +50,8 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 type Context = { params: Promise<{ route: string[] }> };
 async function handle(request: NextRequest, context: Context) {
+  if (process.env.VERCEL === "1" || process.env.BATCHVISTA_MODE === "browser")
+    return Response.json({ error: "Browser demo mode stores and processes records on your device. Workstation APIs are disabled." }, { status: 404 });
   try {
     const { route } = await context.params;
     const [resource, id, action] = route;

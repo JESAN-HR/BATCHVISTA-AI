@@ -1,5 +1,24 @@
 # Verification results
 
+## Vercel browser-mode update — 25 October 2026
+
+Executed locally on Windows/Edge. No cloud AI calls or paid APIs were used; no remote Vercel deployment was performed or verified.
+
+| Command | Actual result |
+| --- | --- |
+| `npm run build` | Passed. Prebuild copied same-origin OCR worker/WASM/model assets. Sandbox initially denied a Turbopack dependency junction; approved execution outside the sandbox succeeded. |
+| `npm run lint` | Passed. |
+| `npm run typecheck` | Passed. |
+| `npm test` | **43 tests passed across 6 files**, 8.94 seconds in the final run. |
+| `npm run test:browser` | **4 tests passed**, 20.3 seconds, against the production build with browser mode on port 3103. |
+| `npm run test:station` | **1 test passed**, 11.9 seconds, confirming workstation camera/batch/named-account functionality with the same build. |
+
+New browser tests exercised actual OCR yielding wrong-batch FAIL, correct-label PASS and unreadable REVIEW with zero fabricated boxes. They verified rejection of invalid image bytes, missing-worker errors without saved fake results, stale-tab write rejection, product/reference persistence, original OCR evidence, a human rejection, reload/history persistence, JSON export including image pixels, browser PDF signature, deletion, full record erasure and mobile width without overflow. Request observation during the complete inspection/review flow found no `/api/` calls and no external HTTP origins. A separate deliberate API request confirmed workstation endpoints return 404 in browser mode. Actual physical phone capture and a remote deployment remain untested.
+
+An initial browser test used an ambiguous alert locator that also matched Next's route announcer; it was scoped to the application error. Unit regression found an outdated authorization-message assertion from the prior wording change; it now asserts the meaningful HTTP 403 denial. Final results above follow these fixes.
+
+Browser screenshots and PDF are generated under `test-results-browser/`; the mobile evidence screen was visually inspected. A durable screenshot is saved at `docs/screenshots/browser-demo-mobile.png`. This update's workstation regression is the station suite; the original three-test workflow suite's earlier results remain recorded below.
+
 ## Camera-first update — 23 October 2026
 
 Executed on Windows with local processing only; no external AI calls or paid services.

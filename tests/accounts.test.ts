@@ -89,7 +89,7 @@ describe("named local identity and migration", () => {
       username: "inspector",
       password: "fictional-password",
     });
-    await expect(auth.identity(req, true)).rejects.toThrow("cannot confirm");
+    await expect(auth.identity(req, true)).rejects.toMatchObject({ status: 403 });
     expect(() =>
       auth.requireManager({
         id: "x",

@@ -1,5 +1,9 @@
 # Architecture
 
+## Browser demo mode
+
+The page selects `BrowserWorkspace` at request time when `BATCHVISTA_MODE=browser` or `VERCEL=1`; otherwise the workstation UI remains. Workstation APIs return 404 before database access in browser mode. `browser-engine.ts` stores a versioned IndexedDB workspace using atomic transactions and revision checks against stale-tab writes. Canvas validates/resizes images; browser Tesseract reads actual pixels using same-origin assets copied by `scripts/browser-assets.mjs` during npm predev/prebuild. `domain.verify` is the shared decision engine. Original OCR, product/reference snapshots, image data and successive reviews are preserved; JSON exports and printing need no API. Authenticated identities, cloud inference, independent batch management and automatic reference alignment are omitted in this mode. See BROWSER_DEMO.md.
+
 ## Implemented stack
 
 Next.js App Router, React, strict TypeScript, accessible custom CSS components, Lucide, Recharts, Zod, Node SQLite, Sharp, Tesseract.js, Vitest and Playwright. Exact package versions are locked in `package-lock.json`. No runtime font/CDN requests are required.

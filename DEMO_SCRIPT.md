@@ -1,5 +1,18 @@
 # Three-minute competition demonstration
 
+## Public browser-mode version
+
+Use the deployed browser demo or `BATCHVISTA_MODE=browser` locally. Only fictional fixtures are needed. First OCR use downloads assets, so load a test once before recording; subsequent inspections still run genuine OCR.
+
+- **0:00–0:30:** explain the packaging-label problem and open the browser workspace. State that this is a prototype for smaller manufacturing teams.
+- **0:30–0:55:** show Product catalog with the expected product, batch, dates and mandatory text. Explain that the system checks an approved specification.
+- **0:55–1:30:** New inspection → Wrong batch → Run real inspection. Show progress, actual text and OCR boxes. Explain that OCR runs on the visitor's device without a paid API.
+- **1:30–2:10:** show the batch mismatch, enter a fictional reviewer name, choose Reject and explain the rationale. Confirm, then Open report and demonstrate PDF/JSON export.
+- **2:10–2:40:** inspect Low resolution to show REVIEW and absent fabricated text/boxes. Explain uncertainty, manual reference review and the absence of physical-defect certification.
+- **2:40–3:00:** show saved history. Explain that this public demo stores evidence in the browser, has no shared authenticated team records, and requires exports. The subscription/team product remains a business hypothesis, not paying traction.
+
+## Workstation-mode version
+
 Before recording: run `npm run dev`, open localhost, use the operator workspace. Use only the bundled fictional labels. If a completely clean dashboard is desired, stop the server and run the backup-preserving reset command first.
 
 **0:00–0:25 — The problem**

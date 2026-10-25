@@ -1,5 +1,9 @@
 # AI usage and zero-cost operation
 
+## Public browser mode
+
+On Vercel or with `BATCHVISTA_MODE=browser`, real Tesseract inference runs in a browser worker with same-origin WASM/model assets. The shared deterministic rules compare the extracted evidence. No image/text is sent to a server API or Gemini; browser mode disables workstation endpoints and cloud integration. Canvas decoding/resizing is image processing, not AI. Reference comparison is manual in this mode; automatic alignment and advanced quality metrics remain workstation-only. Initial app/model loading requires internet; fully offline reload is not guaranteed. See BROWSER_DEMO.md.
+
 ## Three distinct processing layers
 
 **Local learned OCR:** Tesseract.js 6 uses Tesseract's trained English LSTM recognition model and a local WASM engine. It performs actual inference on uploaded pixels. This is specialized text recognition, not general visual reasoning. Language data is bundled in the npm package, not fetched from a CDN at runtime. Word recognition scores come from Tesseract; they are never presented as confidence that a package is safe or compliant.
